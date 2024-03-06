@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: chat.proto
 
-package auth_v1
+package chat_api_v1
 
 import (
 	context "context"
@@ -19,158 +19,158 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// UserAPIClient is the client API for UserAPI service.
+// ChatAPIClient is the client API for ChatAPI service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserAPIClient interface {
+type ChatAPIClient interface {
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
-type userAPIClient struct {
+type chatAPIClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserAPIClient(cc grpc.ClientConnInterface) UserAPIClient {
-	return &userAPIClient{cc}
+func NewChatAPIClient(cc grpc.ClientConnInterface) ChatAPIClient {
+	return &chatAPIClient{cc}
 }
 
-func (c *userAPIClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+func (c *chatAPIClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
 	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, "/auth_v1.UserAPI/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_api_v1.ChatAPI/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userAPIClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *chatAPIClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/auth_v1.UserAPI/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_api_v1.ChatAPI/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *userAPIClient) SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *chatAPIClient) SendMessage(ctx context.Context, in *SendMessageRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/auth_v1.UserAPI/SendMessage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_api_v1.ChatAPI/SendMessage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// UserAPIServer is the server API for UserAPI service.
-// All implementations must embed UnimplementedUserAPIServer
+// ChatAPIServer is the server API for ChatAPI service.
+// All implementations must embed UnimplementedChatAPIServer
 // for forward compatibility
-type UserAPIServer interface {
+type ChatAPIServer interface {
 	Create(context.Context, *CreateRequest) (*CreateResponse, error)
 	Delete(context.Context, *DeleteRequest) (*empty.Empty, error)
 	SendMessage(context.Context, *SendMessageRequest) (*empty.Empty, error)
-	mustEmbedUnimplementedUserAPIServer()
+	mustEmbedUnimplementedChatAPIServer()
 }
 
-// UnimplementedUserAPIServer must be embedded to have forward compatible implementations.
-type UnimplementedUserAPIServer struct {
+// UnimplementedChatAPIServer must be embedded to have forward compatible implementations.
+type UnimplementedChatAPIServer struct {
 }
 
-func (UnimplementedUserAPIServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
+func (UnimplementedChatAPIServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedUserAPIServer) Delete(context.Context, *DeleteRequest) (*empty.Empty, error) {
+func (UnimplementedChatAPIServer) Delete(context.Context, *DeleteRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedUserAPIServer) SendMessage(context.Context, *SendMessageRequest) (*empty.Empty, error) {
+func (UnimplementedChatAPIServer) SendMessage(context.Context, *SendMessageRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendMessage not implemented")
 }
-func (UnimplementedUserAPIServer) mustEmbedUnimplementedUserAPIServer() {}
+func (UnimplementedChatAPIServer) mustEmbedUnimplementedChatAPIServer() {}
 
-// UnsafeUserAPIServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserAPIServer will
+// UnsafeChatAPIServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ChatAPIServer will
 // result in compilation errors.
-type UnsafeUserAPIServer interface {
-	mustEmbedUnimplementedUserAPIServer()
+type UnsafeChatAPIServer interface {
+	mustEmbedUnimplementedChatAPIServer()
 }
 
-func RegisterUserAPIServer(s grpc.ServiceRegistrar, srv UserAPIServer) {
-	s.RegisterService(&UserAPI_ServiceDesc, srv)
+func RegisterChatAPIServer(s grpc.ServiceRegistrar, srv ChatAPIServer) {
+	s.RegisterService(&ChatAPI_ServiceDesc, srv)
 }
 
-func _UserAPI_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatAPI_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserAPIServer).Create(ctx, in)
+		return srv.(ChatAPIServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth_v1.UserAPI/Create",
+		FullMethod: "/chat_api_v1.ChatAPI/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAPIServer).Create(ctx, req.(*CreateRequest))
+		return srv.(ChatAPIServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserAPI_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatAPI_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserAPIServer).Delete(ctx, in)
+		return srv.(ChatAPIServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth_v1.UserAPI/Delete",
+		FullMethod: "/chat_api_v1.ChatAPI/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAPIServer).Delete(ctx, req.(*DeleteRequest))
+		return srv.(ChatAPIServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserAPI_SendMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ChatAPI_SendMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendMessageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserAPIServer).SendMessage(ctx, in)
+		return srv.(ChatAPIServer).SendMessage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/auth_v1.UserAPI/SendMessage",
+		FullMethod: "/chat_api_v1.ChatAPI/SendMessage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserAPIServer).SendMessage(ctx, req.(*SendMessageRequest))
+		return srv.(ChatAPIServer).SendMessage(ctx, req.(*SendMessageRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// UserAPI_ServiceDesc is the grpc.ServiceDesc for UserAPI service.
+// ChatAPI_ServiceDesc is the grpc.ServiceDesc for ChatAPI service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserAPI_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "auth_v1.UserAPI",
-	HandlerType: (*UserAPIServer)(nil),
+var ChatAPI_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "chat_api_v1.ChatAPI",
+	HandlerType: (*ChatAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Create",
-			Handler:    _UserAPI_Create_Handler,
+			Handler:    _ChatAPI_Create_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _UserAPI_Delete_Handler,
+			Handler:    _ChatAPI_Delete_Handler,
 		},
 		{
 			MethodName: "SendMessage",
-			Handler:    _UserAPI_SendMessage_Handler,
+			Handler:    _ChatAPI_SendMessage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

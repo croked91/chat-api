@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-package auth_v1;
+package chat_api_v1;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "https://github.com/croked91/chat-auth_api; auth_v1";
+option go_package = "https://github.com/croked91/chat_api; chat_api_v1";
 
 
-service UserAPI {
+service ChatAPI {
   rpc Create(CreateRequest) returns (CreateResponse){}
   rpc Delete(DeleteRequest)returns(google.protobuf.Empty){}
   rpc SendMessage(SendMessageRequest)returns(google.protobuf.Empty){}
